@@ -6,7 +6,7 @@
 
 ### FIFO
 實作下最直觀的FIFO ， ㄧ開始將input 照ready time 排序。
-```
+``` c=
 check_and_assign_priority() {
     if(CPU 1 is occupied  &&  there exist waiting process) {
         set first process in waiting list to MID_PRIOR
