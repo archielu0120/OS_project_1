@@ -27,8 +27,9 @@ void push(int idx) {
 }
 
 void pop() {
-	if(head <  tail)
+	if(head <  tail){
 		head++;	
+	}
 }
 
 int get_front() {
