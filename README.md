@@ -77,7 +77,7 @@ sched_rr {
 }
 ```
 ### SJF
-SJF 中 在某個時間點有一個新的process ready 了 並且 CPU 1 剛好被釋放。 這時 waiting list 的 first process 不一定是最優先的（因為最新ready process 的 burst time 可能更小 )  。 因此， 先將waiting list 中 first process set LOW_PRRIOR （decrease_next() ) ， 並將最新 ready process 插入 min heap 中做更新 。 如此操作完之後才能保證是 SJF 。
+SJF 中 在某個時間點有一個新的process ready 了 並且 CPU 1 剛好被釋放。 這時 waiting list 的 first process 不一定是最優先的（因為最新ready process 的 burst time 可能更小 )  。 因此， 先將waiting list 中 first process set LOW_PRRIOR （decrease_next() ) ， 並將最新 ready process 插入 min heap 中做更新 。 如此操作完之後才能保證是 SJF 。 heap -> root 為 waiting list 中最優先的 process。
 
 ```
 check_and_assign_priority() {
