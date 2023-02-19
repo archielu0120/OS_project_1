@@ -63,9 +63,9 @@ sched_rr {
             push it into q
             check_and_assign_priority();
         }
-        count++;
+        clock++;
         uniit_time();
-        if(count == TIME_SLICE && CPU 1 is occupied) {
+        if(clock == TIME_SLICE && CPU 1 is occupied) {
             burst_time of running process -= TIME_SLICE;
             pop running process from q
             set running process LOW_PRIOR
