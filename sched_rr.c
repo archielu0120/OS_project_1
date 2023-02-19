@@ -82,15 +82,15 @@ int main(void){
 
 	int next_ready = process_table[ready_num]; 
 	for (int time = 0, i = p_num; i > 0; ++time) {
-        check_and_assign_priority();
-        while (ready_num < p_num && time == ready_time[next_ready]) {
-            fork_child(&proc_id[next_ready], proc_name[next_ready], next_ready, burst_time[next_ready]);
-            push(next_ready);
-            next_ready = process_table[++ready_num];
-            check_and_assign_priority();
-        }
-        unit_time();
-        clock++;
+        	check_and_assign_priority();
+        	while (ready_num < p_num && time == ready_time[next_ready]) {
+            		fork_child(&proc_id[next_ready], proc_name[next_ready], next_ready, burst_time[next_ready]);
+            		push(next_ready);
+            		next_ready = process_table[++ready_num];
+            		check_and_assign_priority();
+        	}
+        	unit_time();
+        	clock++;
    		if(Used && blk != 1 && clock == TIME_SLICE){
    			int idx = get_front();
    			pop();
@@ -100,9 +100,5 @@ int main(void){
    			Used = 0;
    			check_and_assign_priority();
    		}
-    }
-
-
-    
-
+    	}
 }
