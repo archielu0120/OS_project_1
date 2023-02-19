@@ -97,16 +97,18 @@ sched_sjf {
     WAIT ALL CHILD
     
     while(! all task has finished){    
-
-        check_and_assign_priority();    
-    
+  
         wihle(exist new ready process){
             decrese_next();
             fork_child();
             insert new ready process into min heap
+            flag = 1;
+        }
+        
+        if(flag){
             check_and_assign_priority();
         }
-    
+        flag = 0;
         unit_time();
     }
 ```
