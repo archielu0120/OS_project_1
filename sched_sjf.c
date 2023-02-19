@@ -15,6 +15,7 @@ extern int ready_num;
 extern int run_num;
 extern int Used;
 extern pid_t proc_id[MAX_PROC_NUM];
+extern int flag;
 
 Node  *root = NULL;
 void next_pocess_preparation() {
@@ -71,18 +72,24 @@ int main (void)
 
     WAIT_ALL_CHILD();
     
-    int next_ready = process_table[ready_num];    
-
+    int next_ready = process_table[ready_num];  
+    
+    flag = 0;
     for (int time = 0, i = p_num; i > 0; ++time) {
 
-        check_and_assign_schedule();
+        //check_and_assign_schedule();
         while (ready_num < p_num && time == ready_time[next_ready]) {
-        	decrease_current_next();	//a new ready process's priority might higher than currnet root -> decrease current root
+            decrease_current_next();	//a new ready process's priority might higher than currnet root -> decrease current root
             fork_child(&proc_id[next_ready], proc_name[next_ready], next_ready, burst_time[next_ready]);
             root =  add_to_minheap(root, burst_time[next_ready], next_ready);
             next_ready = process_table[++ready_num];
-            check_and_assign_schedule();
+	    flag = 1;
+            
         }
+	if(flag) {
+		check_and_assign_schedule();
+	}
+	flag = 0;
         unit_time();
     }
 }
