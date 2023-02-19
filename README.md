@@ -1,5 +1,11 @@
 # report
 
+# 環境
+
+|       Platform        | Programming Language | OS    |     Kernel     |
+|:---------------------:|:--------------------:| ----- |:--------------:|
+| VirtualBox 6.0 on Mac |          C          | Linux | Ubuntu 4.14.25 |
+
 # 設計
 ## 架構
 使用兩顆CPU 來達成排程效果。 CPU 0 負責 schedule  ， CPU 1 負責跑task 。 在讀進資料後， 先作排序 ， 並在  CPU 0 跑迴圈作計時。 當達到執行條件時 ， fork 出一個 child process 並使用 sched_setaffinity() 將其送到   CPU  1 。 每個process 能擁有3種 priiority  。 在一開始被 fork 的時候是 MID_PRIOR 且馬上被設為 LOW_PRIOR 。 在 waiting list 前端準備要被執行的時候設為 MID_PRIOR 。 執行中的 process 為 HIGH_PRIOR 。 而當某個 child process 結束可以讓出 CPU 的時候 ， 利用 SIGCHLD 通知 parent process 自己已經結束了。
@@ -163,14 +169,10 @@ sched_psjf {
 ```
 
 
-# 環境
-
-|       Platform        | Programming Language | OS    |     Kernel     |
-|:---------------------:|:--------------------:| ----- |:--------------:|
-| VirtualBox 6.0 on Mac |          C          | Linux | Ubuntu 4.14.25 |
 
 
 
-## 可能造成誤差的原因：
+
+# 可能造成誤差的原因：
 1. 設計上為schedule 和 task 在不同 CPU 上跑。 就算在同一顆 CPU 上跑每次unit_time() 都不同，在不同 CPU 上誤差可能會越大。
 2. 照理來說，實作下CPU排程還需要處理資料結構等程式本身問題，可能會造成超時的誤差。然而，數據中發現有負的誤差，這表示系統本身也可能會有context switch 之類等等自身運作上的成本。 因此， 實驗當時的 CPU 負載狀況也是影響結果重要的因素之一。
