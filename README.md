@@ -38,7 +38,7 @@ sched_fifo {
 ```
 
 ### RR
-用一個 first in first out queue q 把 waiting process 放到裡面。  在parent process 設一個 clock ， 當clock ==  TIME_SLICE 的時候 ，把running process  set  LOW_PRIOR 。 並將他一到 q 的尾巴。
+用一個 first in first out queue q 把 waiting process 放到裡面。  在parent process 設一個 clock ， 當clock ==  TIME_SLICE 的時候 ，把running process  set  LOW_PRIOR 。 並將他一到 q 的尾巴。 head 為目前正在 run 的 process。
 
 ```
 check_and_assign_priority() {
