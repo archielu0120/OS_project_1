@@ -33,8 +33,8 @@ int last_executed_time = 0;
 		while(root != NULL && waitpid(proc_id[root -> index], NULL, WNOHANG) != 0){	\
 			finished++;		\
    			root = pop_minheap(root);	\
-    		Used = 0;	\
-    		if(finished == p_num) exit(0);	\
+    			Used = 0;	\
+    			if(finished == p_num) exit(0);	\
 		}		\
 		UNBLK_SIGNALS();	\
 	}while(0)
