@@ -66,7 +66,7 @@ void check_and_assign_priority() {
     if (!Used && tail - head >= 1)//cpu is not occupied and has waiting process
     	run_next();
     		
-    if (Used && tail - head  >= 1)	   
+    if (Used && tail - head  >= 2)	   
         next_process_preparation();
 }
 
